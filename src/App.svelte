@@ -31,17 +31,14 @@
   let uploadCTA;
 
   $: figureStyle = `background-image: url(${bgSrc})`;
-  $: uploadLabel = !bgSrc
-    ? "Adicionar imagem de fundo"
-    : `Imagem de fundo: ${bgFilename}`;
 
   const uploadImage = e => {
     const reader = new FileReader();
     reader.onload = ({ target: { result } }) => {
       bgSrc = result;
+      bgFilename = uploadedFile.name;
     };
     const [uploadedFile] = e.target.files;
-    bgFilename = uploadedFile.name;
     reader.readAsDataURL(uploadedFile);
   };
 
