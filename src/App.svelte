@@ -1,125 +1,101 @@
-<div class="configs">
-	<div class="row">
-		<input type="file" class="input-full" on:change={uploadImage} />
-	</div>
-	<div class="row size">
-		<input type="text" bind:value={width} />
-		<div class="x">x</div>
-		<input type="text" bind:value={height} />
-	</div>
-	<div class="row">
-		<input type="text" class="input-full" placeholder="Título" bind:value={title} />
-	</div>
-	<div class="row">
-		<textarea placeholder="Descrição" bind:value={description}></textarea>
-	</div>
-</div>
+<h1>10Ḋḕ10 ḈṳṙḭṏṠḭṮẏ ḠḕṆḕṙḀṮṏṙ</h1>
 
 <div class="result">
-	{#if bgSrc}
 	<div class="figure" style={figureStyle}>
+		<input type="file" class="upload-area" on:change={uploadImage} />
+		{#if !bgSrc}
+		<div class="upload-area-cta" bind:this={uploadCTA}>
+			Clique para subir uma imagem ou arraste-a
+		</div>
+		{/if}
 		<img src="./assets/logo.png" class="logo" alt="10de10">
 		<div class="content">
-			<div class="title">{title}</div>
-			<div class="description">{description}</div>
+			<div class="title" contenteditable="true">
+				VOCÊ SABIA?
+			</div>
+			<div class="description" contenteditable="true">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consectetur minus sed dolores ex velit itaque vitae
+				nulla repellendus dicta, fuga, repudiandae libero quos maxime, commodi cupiditate ea explicabo facere.
+			</div>
 		</div>
 	</div>
-	{/if}
 </div>
 
 
 <script>
   import { onMount } from "svelte";
 
-  export let title = "VOCÊ SABIA?";
-  export let description =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consectetur minus sed dolores ex velit itaque vitae nulla repellendus dicta, fuga, repudiandae libero quos maxime, commodi cupiditate ea explicabo facere.";
-  export let width = 1000;
-  export let height = 1000;
-
-  let figure;
+  let bgFilename = "";
   let bgSrc;
 
-  let figureStyle;
-  $: {
-    figureStyle = [
-      `width: ${width}px`,
-      `height: ${height}px`,
-      `background-image: url(${bgSrc})`
-    ].join(";");
-  }
+  let uploadCTA;
+
+  $: figureStyle = `background-image: url(${bgSrc})`;
+  $: uploadLabel = !bgSrc
+    ? "Adicionar imagem de fundo"
+    : `Imagem de fundo: ${bgFilename}`;
 
   const uploadImage = e => {
     const reader = new FileReader();
-    reader.addEventListener("load", e => {
-      const img = new Image();
-      img.onload = () => {
-        bgSrc = img.src;
-      };
-      img.src = e.target.result;
-    });
-    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = ({ target: { result } }) => {
+      bgSrc = result;
+    };
+    const [uploadedFile] = e.target.files;
+    bgFilename = uploadedFile.name;
+    reader.readAsDataURL(uploadedFile);
   };
+
+  onMount(() => {
+    const chars = uploadCTA.innerText.split("");
+    const colors = ["orange", "#eed600", "green", "cyan", "blue", "violet"];
+    uploadCTA.innerHTML = chars.reduce((acc, char) => {
+      let curColor = colors.shift();
+      colors.push(curColor);
+      acc += `<span style="color: ${curColor}">${char}</span>`;
+      return acc;
+    }, "");
+  });
 </script>
 
 <style>
   :root {
     --red: #9f0e00;
     --red-glow: #ff0029;
+    --roboto: Roboto, Arial, sans-serif;
+    --alberto: Alberto, Impact, Arial, sans-serif;
   }
 
-  input,
-  textarea {
+  :global(html) {
+    background-color: #fff;
+    cursor: url("data:image/x-icon;base64,AAACAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAGgr8AAr8RwDsm/IAXFlbAIHm9wAK6PwA+vf5APwKrAD8cwoACqD8AM9EswAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAABEAARAAAAAAAAARAAAAAAAAAAAAAAAAAAAAERABVVVUEREREREAAAAAIgAAFVTMwREAAAABEAAiIiIiABVOzBDNARARAQzAIiImZmQUzOwQzREREREMwCZmZmZkFOzMERABEQEAEQAmZmZkABTM7BERwRERHBEACIiAABAUzMzBEREREREQAAiAEREQFMzswREQAAEREAAZgREAABTMzMERAMzUERAAGZgAAqgU7MzBEAzs1AEQACqqqqqoFMzMzADMzNQAAAAqqoRERBVMzszszNVUAAAABERERERBVVVVVVVVQAAAAAREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD////////////////////////////////////////////44x/8cMIf/CAAB/wAAAP4AAABgAAAAIAAAACAAAAAgAAAAIAAAAGAAAABgAAAAYAAAAGAAAATgAAAH4AAAD+H8AB///////////9/////P////x////8P////B////w=="),
+      auto;
+  }
+
+  :global(body) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  h1 {
+    text-align: center;
+    margin: 10px 0 30px;
+    color: #b8a9d1;
+  }
+
+  input {
     margin: 0;
   }
-
-  textarea {
-    resize: none;
-    width: 100%;
-    height: 100px;
-  }
-
-  .row {
-    margin-bottom: 10px;
-  }
-
-  .configs {
-    width: 500px;
-    margin: 0 auto 50px;
-  }
-
-  .size {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .size input {
-    flex: 1 0 auto;
-  }
-
-  .x {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 10px;
-    text-align: center;
-    flex: 0 0 auto;
-  }
-
-  .input-full {
-    width: 100%;
-  }
-
-  .result {
-    margin-bottom: 50px;
-  }
-
   .figure {
-    margin: 0 auto;
     position: relative;
     background-position: center;
     background-size: cover;
+    width: 1000px;
+    height: 1000px;
+    background-color: #f0f0f0;
   }
 
   img {
@@ -132,6 +108,27 @@
     right: 28px;
     width: 118px;
     height: auto;
+    pointer-events: none;
+  }
+
+  .upload-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+  }
+
+  .upload-area-cta {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--roboto);
+    font-size: 32px;
+    width: 285px;
+    text-align: center;
   }
 
   .content {
@@ -155,7 +152,7 @@
     position: relative;
     padding: 11px 28px;
     margin-bottom: 24px;
-    font-family: Alberto;
+    font-family: var(--alberto);
     font-size: 67px;
     text-align: center;
   }
@@ -178,7 +175,7 @@
     width: 100%;
     max-width: 82%;
     margin: 0 auto;
-    font-family: Roboto;
+    font-family: var(--roboto);
     font-size: 40px;
     font-weight: 700;
     padding: 20px 22px;
