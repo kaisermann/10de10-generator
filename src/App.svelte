@@ -58,10 +58,6 @@
     color: var(--red);
   }
 
-  button:focus {
-    outline: none;
-  }
-
   button:active {
     transform: scale(0.95);
   }
