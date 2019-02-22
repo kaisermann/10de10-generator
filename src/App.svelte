@@ -1,57 +1,27 @@
-<h1>10Ḋḕ10 ḈṳṙḭṏṠḭṮẏ ḠḕṆḕṙḀṮṏṙ</h1>
-
-<div class="result">
-	<div class="figure" style={figureStyle}>
-		<input type="file" class="upload-area" on:change={uploadImage} />
-		{#if !bgSrc}
-		<div class="upload-area-cta" bind:this={uploadCTA}>
-			Clique para subir uma imagem ou arraste-a
+<div class="container">
+	<header>
+		<h1>10Ḋḕ10 ḠḕṆḕṙḀṮṏṙ</h1>
+		<div class="menu">
+			<button on:click={()=> (currentTemplate = Curiosity)}>Curiosidade</button>
+			<button on:click={()=> (currentTemplate = Story)}>Story</button>
+			<button on:click={()=> (currentTemplate = Cast)}>10deCast</button>
+			<button on:click={()=> (currentTemplate = Sd10)}>Semana dos 10</button>
 		</div>
+	</header>
+	<div class="content">
+		{#if currentTemplate}
+		<svelte:component this={currentTemplate} />
 		{/if}
-		<img src="./assets/logo.png" class="logo" alt="10de10">
-		<div class="content">
-			<div class="title" contenteditable="true">
-				VOCÊ SABIA?
-			</div>
-			<div class="description" contenteditable="true">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consectetur minus sed dolores ex velit itaque vitae
-				nulla repellendus dicta, fuga, repudiandae libero quos maxime, commodi cupiditate ea explicabo facere.
-			</div>
-		</div>
 	</div>
 </div>
 
-
 <script>
-  import { onMount } from "svelte";
+  import Curiosity from "./templates/Curiosity.svelte";
+  import Sd10 from "./templates/Sd10.svelte";
+  import Cast from "./templates/10deCast.svelte";
+  import Story from "./templates/Story.svelte";
 
-  let bgFilename = "";
-  let bgSrc;
-
-  let uploadCTA;
-
-  $: figureStyle = `background-image: url(${bgSrc})`;
-
-  const uploadImage = e => {
-    const reader = new FileReader();
-    reader.onload = ({ target: { result } }) => {
-      bgSrc = result;
-      bgFilename = uploadedFile.name;
-    };
-    const [uploadedFile] = e.target.files;
-    reader.readAsDataURL(uploadedFile);
-  };
-
-  onMount(() => {
-    const chars = uploadCTA.innerText.split("");
-    const colors = ["orange", "#eed600", "green", "cyan", "blue", "violet"];
-    uploadCTA.innerHTML = chars.reduce((acc, char) => {
-      let curColor = colors.shift();
-      colors.push(curColor);
-      acc += `<span style="color: ${curColor}">${char}</span>`;
-      return acc;
-    }, "");
-  });
+  let currentTemplate;
 </script>
 
 <style>
@@ -62,120 +32,42 @@
     --alberto: Alberto, Impact, Arial, sans-serif;
   }
 
-  :global(html) {
-    background-color: #fff;
-    cursor: url("data:image/x-icon;base64,AAACAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAGgr8AAr8RwDsm/IAXFlbAIHm9wAK6PwA+vf5APwKrAD8cwoACqD8AM9EswAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEAABEAARAAAAAAAAARAAAAAAAAAAAAAAAAAAAAERABVVVUEREREREAAAAAIgAAFVTMwREAAAABEAAiIiIiABVOzBDNARARAQzAIiImZmQUzOwQzREREREMwCZmZmZkFOzMERABEQEAEQAmZmZkABTM7BERwRERHBEACIiAABAUzMzBEREREREQAAiAEREQFMzswREQAAEREAAZgREAABTMzMERAMzUERAAGZgAAqgU7MzBEAzs1AEQACqqqqqoFMzMzADMzNQAAAAqqoRERBVMzszszNVUAAAABERERERBVVVVVVVVQAAAAAREQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD////////////////////////////////////////////44x/8cMIf/CAAB/wAAAP4AAABgAAAAIAAAACAAAAAgAAAAIAAAAGAAAABgAAAAYAAAAGAAAATgAAAH4AAAD+H8AB///////////9/////P////x////8P////B////w=="),
-      auto;
-  }
-
-  :global(body) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  }
-
   h1 {
+    margin: 10px 0 15px;
+    font-size: 32px;
+    font-weight: bold;
     text-align: center;
-    margin: 10px 0 30px;
     color: #b8a9d1;
   }
 
-  input {
-    margin: 0;
-  }
-  .figure {
-    position: relative;
-    background-position: center;
-    background-size: cover;
-    width: 1000px;
-    height: 1000px;
-    background-color: #f0f0f0;
+  .menu {
+    display: flex;
+    justify-content: center;
   }
 
-  img {
-    max-width: 100%;
+  .menu button + button {
+    margin-left: 5px;
   }
 
-  .logo {
-    position: absolute;
-    top: 28px;
-    right: 28px;
-    width: 118px;
-    height: auto;
-    pointer-events: none;
+  .container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header"
+      "content";
+    min-height: 100vh;
   }
 
-  .upload-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-  }
-
-  .upload-area-cta {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--roboto);
-    font-size: 32px;
-    width: 285px;
-    text-align: center;
+  header {
+    grid-area: header;
+    padding: 16px 8px;
   }
 
   .content {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    overflow: hidden;
-    text-align: center;
-  }
-
-  .title,
-  .description {
-    background-color: var(--red);
-    color: #fff;
-  }
-
-  .title {
-    display: inline-block;
-    position: relative;
-    padding: 11px 28px;
-    margin-bottom: 24px;
-    font-family: var(--alberto);
-    font-size: 67px;
-    text-align: center;
-  }
-
-  .title::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 12px;
-    left: -6px;
-    width: calc(100% - 19px);
-    height: calc(100% - 6px);
-    background-color: var(--red-glow);
-    box-shadow: 0 0 24px var(--red-glow);
-    z-index: -1;
-  }
-
-  .description {
-    text-align: left;
-    width: 100%;
-    max-width: 82%;
-    margin: 0 auto;
-    font-family: var(--roboto);
-    font-size: 40px;
-    font-weight: 700;
-    padding: 20px 22px;
-    box-shadow: -13px 17px var(--red-glow), -13px 17px 24px var(--red-glow);
+    grid-area: content;
+    display: flex;
+    justify-content: center;
+    padding: 16px 8px;
+    background: #f7f7f7;
   }
 </style>
