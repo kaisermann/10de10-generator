@@ -1,1 +1,1 @@
-# [10de10-curiosity-generator](https://10de10-curiosity-generator.netlify.com/)
+# [10de10-generator](https://10de10-generator.netlify.com/)
