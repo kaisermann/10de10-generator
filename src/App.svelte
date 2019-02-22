@@ -34,7 +34,7 @@
 
   h1 {
     margin: 10px 0 15px;
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: bold;
     text-align: center;
     color: #b8a9d1;
@@ -45,7 +45,28 @@
     justify-content: center;
   }
 
-  .menu button + button {
+  button {
+    border: none;
+    background: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  button:hover {
+    color: var(--red);
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+
+  button + button {
     margin-left: 5px;
   }
 
