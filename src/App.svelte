@@ -16,20 +16,24 @@
 </div>
 
 <script>
+  import { onMount, afterUpdate } from 'svelte';
   import Curiosity from "./templates/Curiosity.svelte";
   import Sd10 from "./templates/Sd10.svelte";
   import Cast from "./templates/10deCast.svelte";
   import Story from "./templates/Story.svelte";
 
-  let currentTemplate;
+  let currentTemplate = Cast
+
 </script>
 
 <style>
   :root {
     --red: #9f0e00;
     --red-glow: #ff0029;
+    --white: #fff;
     --roboto: Roboto, Arial, sans-serif;
     --alberto: Alberto, Impact, Arial, sans-serif;
+    --oswald: Oswald, Impact, sans-serif;
   }
 
   h1 {

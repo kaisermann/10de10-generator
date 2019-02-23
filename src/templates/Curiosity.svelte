@@ -1,109 +1,21 @@
-<div class="result">
-	<div class="figure" style={figureStyle}>
-		<input type="file" class="upload-area" on:change={uploadImage} />
-		{#if !bgSrc}
-		<div class="upload-area-cta" bind:this={uploadCTA}>
-			Clique para subir uma imagem ou arraste-a
+<Template>
+	<div class="content">
+		<div class="title" contenteditable="true">
+			VOCÊ SABIA?
 		</div>
-		{/if}
-		<img src="./assets/logo.png" class="logo" alt="10de10">
-		<div class="content">
-			<div class="title" contenteditable="true">
-				VOCÊ SABIA?
-			</div>
-			<div class="description" contenteditable="true">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consectetur minus sed dolores ex velit itaque vitae
-				nulla repellendus dicta, fuga, repudiandae libero quos maxime, commodi cupiditate ea explicabo facere.
-			</div>
+		<div class="description" contenteditable="true">
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum consectetur minus sed dolores ex velit itaque vitae
+			nulla repellendus dicta, fuga, repudiandae libero quos maxime, commodi cupiditate ea explicabo facere.
 		</div>
 	</div>
-</div>
+</Template>
 
 
 <script>
-  import { onMount } from "svelte";
-
-  let bgFilename = "";
-  let bgSrc;
-
-  let uploadCTA;
-
-  $: figureStyle = `background-image: url(${bgSrc})`;
-
-  const uploadImage = e => {
-    const reader = new FileReader();
-    reader.onload = ({ target: { result } }) => {
-      bgSrc = result;
-      bgFilename = uploadedFile.name;
-    };
-    const [uploadedFile] = e.target.files;
-    reader.readAsDataURL(uploadedFile);
-  };
-
-  onMount(() => {
-    const chars = uploadCTA.innerText.split("");
-    const colors = ["orange", "#eed600", "green", "cyan", "blue", "violet"];
-    uploadCTA.innerHTML = chars.reduce((acc, char) => {
-      let curColor = colors.shift();
-      colors.push(curColor);
-      acc += `<span style="color: ${curColor}">${char}</span>`;
-      return acc;
-    }, "");
-  });
+  import Template from "../components/Template.svelte";
 </script>
 
 <style>
-  h1 {
-    text-align: center;
-    margin: 10px 0 30px;
-    color: #b8a9d1;
-  }
-
-  input {
-    margin: 0;
-  }
-  .figure {
-    position: relative;
-    background-position: center;
-    background-size: cover;
-    width: 1000px;
-    height: 1000px;
-    background-color: #f0f0f0;
-  }
-
-  img {
-    max-width: 100%;
-  }
-
-  .logo {
-    position: absolute;
-    top: 28px;
-    right: 28px;
-    width: 118px;
-    height: auto;
-    pointer-events: none;
-  }
-
-  .upload-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-  }
-
-  .upload-area-cta {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--roboto);
-    font-size: 32px;
-    width: 285px;
-    text-align: center;
-  }
-
   .content {
     width: 100%;
     position: absolute;
