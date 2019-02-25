@@ -20,23 +20,26 @@
     left: 0;
     width: 100%;
     font-family: var(--oswald);
-    padding: 25px;
-    line-height: 1.8;
+    padding: 35px;
   }
 
   span {
     background-color: var(--red);
     line-height: 1;
     color: var(--white);
+    box-decoration-break: clone;
+    box-shadow: 10px 0 0 var(--red), -10px 0 0 var(--red);
   }
 
   .number {
-    font-weight: bold;
     font-size: 32px;
+    line-height: 1.8;
   }
 
   .title {
-    font-size: 44px;
+    font-weight: bold;
+    font-size: 52px;
     max-width: 80%;
+    line-height: 1.6;
   }
 </style>

@@ -72,7 +72,7 @@
   .logo {
     position: absolute;
     top: 28px;
-    right: 28px;
+    right: 20px;
     width: 118px;
     height: auto;
     pointer-events: none;
