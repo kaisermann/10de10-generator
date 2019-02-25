@@ -22,3 +22,15 @@ html{
 *:focus {
   outline: none;
 }
+
+.logo {
+  width: 118px;
+  height: auto;
+  pointer-events: none;
+}
+
+.logo.fixed-right {
+  position: absolute;
+  top: 28px;
+  right: 20px;
+}

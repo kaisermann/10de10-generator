@@ -1,4 +1,5 @@
 <Template>
+	<img src="./assets/logo.png" class="logo fixed-right" alt="10de10">
   <div class="content">
     <div class="number" contenteditable="true">
       <span>10deCast #XX</span>
@@ -21,25 +22,23 @@
     width: 100%;
     font-family: var(--oswald);
     padding: 35px;
+    line-height: 1.6;
   }
 
   span {
     background-color: var(--red);
-    line-height: 1;
     color: var(--white);
     box-decoration-break: clone;
     box-shadow: 10px 0 0 var(--red), -10px 0 0 var(--red);
   }
 
   .number {
-    font-size: 32px;
-    line-height: 1.8;
+    font-size: 42px;
   }
 
   .title {
     font-weight: bold;
-    font-size: 52px;
+    font-size: 60px;
     max-width: 80%;
-    line-height: 1.6;
   }
 </style>

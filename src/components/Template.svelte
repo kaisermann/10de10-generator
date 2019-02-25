@@ -1,57 +1,50 @@
-<div class="template" style={templateStyle}>
-	<input type="file" class="upload-area" on:change={uploadImage} />
+<div class="template" style="{templateStyle}">
+  <input type="file" class="upload-area" on:change="{uploadImage}" />
 
-	{#if !bgSrc}
-	<div class="upload-area-cta" bind:this={uploadCTA}>
-		Clique para subir uma imagem ou arraste-a
-	</div>
-	{/if}
-
-	{#if showLogo}
-	<img src="./assets/logo.png" class="logo" alt="10de10">
-	{/if}
-
-	<slot></slot>
+  {#if !bgSrc}
+  <div class="upload-area-cta" bind:this="{uploadCTA}">
+    Clique para subir uma imagem ou arraste-a
+  </div>
+  {/if}
+  <slot></slot>
 </div>
 
-
 <script>
-  import { onMount } from "svelte";
+  import { onMount } from 'svelte'
 
-  let bgFilename = "";
-  let bgSrc;
-  let uploadCTA;
+  let bgFilename = ''
+  let bgSrc
+  let uploadCTA
 
-  export let showLogo = true;
-  export let width = 1000;
-  export let height = 1000;
+  export let width = 1000
+  export let height = 1000
 
   $: templateStyle = [
     `background-image: url(${bgSrc})`,
     `width: ${width}px`,
-    `width: ${height}px`
-  ].join(";");
+    `width: ${height}px`,
+  ].join(';')
 
   const uploadImage = e => {
-    const reader = new FileReader();
+    const reader = new FileReader()
     reader.onload = ({ target: { result } }) => {
-      bgSrc = result;
-      bgFilename = uploadedFile.name;
-    };
-    const [uploadedFile] = e.target.files;
-    reader.readAsDataURL(uploadedFile);
-  };
+      bgSrc = result
+      bgFilename = uploadedFile.name
+    }
+    const [uploadedFile] = e.target.files
+    reader.readAsDataURL(uploadedFile)
+  }
 
   onMount(() => {
-    const chars = uploadCTA.innerText.split("");
-    const colors = ["orange", "#eed600", "green", "cyan", "blue", "violet"];
+    const chars = uploadCTA.innerText.split('')
+    const colors = ['orange', '#eed600', 'green', 'cyan', 'blue', 'violet']
     uploadCTA.innerHTML = chars.reduce((acc, char) => {
-      let curColor = colors.shift();
-      colors.push(curColor);
-      acc += `<span style="color: ${curColor}">${char}</span>`;
-      return acc;
-    }, "");
-  });
+      let curColor = colors.shift()
+      colors.push(curColor)
+      acc += `<span style="color: ${curColor}">${char}</span>`
+      return acc
+    }, '')
+  })
 </script>
 
 <style>
@@ -67,15 +60,6 @@
 
   img {
     max-width: 100%;
-  }
-
-  .logo {
-    position: absolute;
-    top: 28px;
-    right: 20px;
-    width: 118px;
-    height: auto;
-    pointer-events: none;
   }
 
   .upload-area {

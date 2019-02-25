@@ -1,4 +1,5 @@
 <Template>
+	<img src="./assets/logo.png" class="logo fixed-right" alt="10de10">
 	<div class="content">
 		<div class="title" contenteditable="true">
 			VOCÊ SABIA?

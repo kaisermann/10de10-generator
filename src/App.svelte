@@ -22,7 +22,7 @@
   import Cast from "./templates/10deCast.svelte";
   import Story from "./templates/Story.svelte";
 
-  let currentTemplate = Cast
+  let currentTemplate = Sd10
 
 </script>
 
@@ -31,6 +31,7 @@
     --red: #9f0e00;
     --red-glow: #ff0029;
     --white: #fff;
+    --black: #000;
     --roboto: Roboto, Arial, sans-serif;
     --alberto: Alberto, Impact, Arial, sans-serif;
     --oswald: Oswald, Impact, sans-serif;
