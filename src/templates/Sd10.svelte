@@ -1,4 +1,4 @@
-<Template showL>
+<Template>
   <div class="content">
     <div class="title" contenteditable="true">
       <span>Semana dos </span>
@@ -29,22 +29,24 @@
   }
 
   .logo {
-    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+    width: 191px;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
   }
 
   span {
     color: var(--white);
-    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   }
 
   .number {
     font-size: 52px;
-    margin-top: 18px;
+    margin-top: 23px;
+    font-weight: 300;
   }
 
   .title {
     font-weight: bold;
-    font-size: 70px;
+    font-size: 75px;
     max-width: 80%;
   }
 </style>
