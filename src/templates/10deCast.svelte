@@ -22,7 +22,7 @@
     width: 100%;
     font-family: var(--oswald);
     padding: 35px;
-    line-height: 1.6;
+    line-height: 1.54;
   }
 
   span {

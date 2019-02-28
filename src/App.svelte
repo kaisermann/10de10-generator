@@ -22,7 +22,7 @@
   import Cast from "./templates/10deCast.svelte";
   import Story from "./templates/Story.svelte";
 
-  let currentTemplate = Sd10
+  let currentTemplate = Cast;
 
 </script>
 
