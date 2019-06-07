@@ -3,14 +3,15 @@
 		<h1>10Ḋḕ10 ḠḕṆḕṙḀṮṏṙ</h1>
 		<div class="menu">
 			<button on:click={()=> (currentTemplate = Curiosity)}>Curiosidade</button>
-			<button on:click={()=> (currentTemplate = Story)}>Story</button>
+			<!-- <button on:click={()=> (currentTemplate = Story)}>Story</button> -->
 			<button on:click={()=> (currentTemplate = Cast)}>10deCast</button>
 			<button on:click={()=> (currentTemplate = Sd10)}>Semana dos 10</button>
+			<button on:click={()=> (currentTemplate = Mindicai)}>Mindicaí</button>
 		</div>
 	</header>
 	<div class="content">
 		{#if currentTemplate}
-		<svelte:component this={currentTemplate} />
+		  <svelte:component this={currentTemplate} />
 		{/if}
 	</div>
 </div>
@@ -21,8 +22,9 @@
   import Sd10 from "./templates/Sd10.svelte";
   import Cast from "./templates/10deCast.svelte";
   import Story from "./templates/Story.svelte";
+  import Mindicai from "./templates/Mindicai.svelte";
 
-  let currentTemplate = Cast;
+  let currentTemplate = Mindicai;
 
 </script>
 
